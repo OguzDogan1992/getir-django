@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include "includes/_navbar.html" %}
+
+<style>
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        color: red;
+        font-weight: 600;
+    }
+</style>
+
+{% if messages %}
+        {% for mesaj in messages %}
+            <div class="alert mt-5 alert-{{mesaj.tags}}">
+                <b>{{mesaj}}</b>
+            </div>
+        {% endfor %}
+
+    {% else %}
+    {% endif %}
+
+<div class="container loginBox">
+    <form action="" method="POST" class="w-50 m-auto border p-4">
+        {% csrf_token %}
+        <label for="">Kullanıcı Adı</label>
+        <input type="text" name="kullanici" id="" class="form-control">
+        <label for="">Şifre</label>
+        <input type="password" name="sifre" id="" class="form-control">
+        <input type="submit" value="Giriş Yap" class="btn mt-2">
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,17 @@
+.registerBox {
+    margin-top: 5rem;
+}
+
+.loginBox {
+    margin-top: 5rem;
+}
+
+.alert-warning {
+    background-color: rgb(250, 184, 184);
+    color: rgb(187, 0, 0);
+    text-align: center;
+}
+
+.alert-success {
+    text-align: center;
+}

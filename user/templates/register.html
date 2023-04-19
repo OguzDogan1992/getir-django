@@ -1,0 +1,33 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include "includes/_navbar.html" %}
+
+<style>
+    .helptext ul li {
+        list-style-type: none;
+    }
+
+    .helptext ul {
+        padding: 0;
+    }
+
+    .errorlist {
+        list-style: none;
+        padding: 0;
+        color: red;
+        font-weight: 600;
+    }
+</style>
+
+<div class="container registerBox">
+    <form action="" method="POST" class="w-50 m-auto border p-4">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" value="Kayıt Ol">
+    </form>
+</div>
+
+{% endblock content %}

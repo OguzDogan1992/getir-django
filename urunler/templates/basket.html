@@ -1,0 +1,82 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+{% include "includes/_navbar.html" %}
+
+<div class="position-absolute" style="width: 100%; justify-items: center;">
+    <div class="ms-auto me-auto" style="width: 33%;">
+        {% if messages %}
+        {% for mesaj in messages %}
+        <div class="alert m-0 alert-success alert-dismissible fade show" role="alert">
+            <strong>{{mesaj}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+
+        {% else %}
+        {% endif %}
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="detail-box">
+        {% if user.is_authenticated and sepetim|length > 0 %}
+        <h4 class='mb-5 fw-bold text-secondary'>Sepetim</h4>
+        <div class="row justify-content-between">
+            <div class="urunBox col-md-9">
+                {% for urun in sepetim %}
+                <div class="urunRow row align-items-center">
+                    <div class="col-md-2">
+                        <div class="" style="width: 50px ; height: auto;">
+                            <img src="{{urun.urun.resim.url}}" width="100%" alt="">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="fw-bold">{{urun.urun.isim}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <p class="fw-bold">₺{{urun.urun.fiyat}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <form action="" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="urunId" value="{{urun.id}}">
+                            <input class="yeniAdet" type="number" name="yeniAdet" min="1" value="{{urun.adet}}">
+                            <input class="guncelle fw-bold" type="submit" name="guncelle" value="Güncelle">
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <p class="fw-bold">Toplam Fiyat : ₺{{urun.toplamFiyat}}</p>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="d-flex">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="urunId" value="{{urun.id}}">
+                                <input type="submit" name="sil" value="" class="btn-close ms-5">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-3">
+                <div class="paymentBox">
+                    <p>Ödenecek Miktar : ₺{{toplam}}</p>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <input class="confirmBtn" type="submit" value="Sepeti Onayla" name="odeme">
+                    </form>
+                </div>
+            </div>
+            {% else %}
+            <div class="text-center" style="width: 100%;">
+                <h3 class="mb-2 fw-bold text-dark" style="letter-spacing: .5px; word-spacing: 5px;">Sepette Ürün Bulunmamaktadır.</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
